@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "linkedList.h"
-#include "listNode.h"
 
 struct LinkedList {
     ListNode* head;
