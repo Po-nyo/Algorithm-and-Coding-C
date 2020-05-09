@@ -13,6 +13,5 @@ ListNode* createNode(DataType);
 void setLink(ListNode* node, ListNode* linkNode);
 ListNode* getLink(ListNode* node);
 DataType getData(ListNode* node);
-void freeNode(ListNode* node);
 
 #endif //LINKEDLIST_LISTNODE_H
