@@ -32,7 +32,7 @@ void enqueue(Queue* q, DataType data) {
 }
 
 DataType dequeue(Queue* q) {
-    if(q->front == NULL) {
+    if(isEmpty(q)) {
         printf("Queue is Empty!\n");
         return 0;
     }
@@ -54,7 +54,7 @@ DataType dequeue(Queue* q) {
 }
 
 DataType peek(Queue* q) {
-    if(q->front == NULL) {
+    if(isEmpty(q)) {
         printf("Queue is Empty!\n");
         return 0;
     }
@@ -85,4 +85,8 @@ void freeQueue(Queue* q) {
     }
     free(newRear);
     free(q);
+}
+
+bool isEmpty(Queue* q) {
+    return q->front == NULL;
 }

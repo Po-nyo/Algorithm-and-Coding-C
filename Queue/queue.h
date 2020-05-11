@@ -5,6 +5,7 @@
 #ifndef QUEUE_QUEUE_H
 #define QUEUE_QUEUE_H
 
+#include <stdbool.h>
 #include "queueNode.h"
 
 typedef struct Queue Queue;
@@ -15,5 +16,7 @@ DataType dequeue(Queue* q);
 DataType peek(Queue* q);
 void printQ(Queue* q);
 void freeQueue(Queue* q);
+bool isEmpty(Queue* q);
+
 
 #endif //QUEUE_QUEUE_H
