@@ -6,15 +6,13 @@
 
 typedef struct Node {
     DataType data;
-    Node* lLink;
-    Node* rLink;
+    Node* link;
 } Node;
 
 Node* createNode(DataType data) {
     Node* newNode = malloc(sizeof(Node));
     newNode->data = data;
-    newNode->lLink = NULL;
-    newNode->rLink = NULL;
+    newNode->link = NULL;
 
     return newNode;
 }
@@ -23,19 +21,11 @@ DataType getData(Node* node) {
     return node->data;
 }
 
-void setLeftLink(Node* node, Node* leftNode) {
-    node->lLink = leftNode;
+void setLink(Node* node, Node* nextNode) {
+    node->link = nextNode;
 }
 
-void setRightLink(Node* node, Node* rightNode) {
-    node->rLink = rightNode;
-}
-
-Node* getLeftLink(Node* node) {
-    return node->lLink;
-}
-
-Node* getRightLink(Node* node) {
-    return node->rLink;
+Node* getLink(Node* node) {
+    return node->link;
 }
 
