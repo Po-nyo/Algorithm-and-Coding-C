@@ -89,15 +89,17 @@ void printList(LinkedList* list) {
 }
 
 void freeList(LinkedList* list) {
-    ListNode* target = list->head;
-    ListNode* newHead = getLink(target);
+    if(!isEmpty(list)) {
+        ListNode *target = list->head;
+        ListNode *newHead = getLink(target);
 
-    while(target != NULL) {
-        newHead = getLink(target);
-        free(target);
-        target = newHead;
+        while (target != NULL) {
+            newHead = getLink(target);
+            free(target);
+            target = newHead;
+        }
+        free(newHead);
     }
-    free(newHead);
     free(list);
 }
 
