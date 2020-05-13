@@ -75,15 +75,17 @@ void printQ(Queue* q) {
 }
 
 void freeQueue(Queue* q) {
-    Node* target = q->rear;
-    Node* newRear = getRightLink(target);
+    if(!isEmpty(q)) {
+        Node *target = q->rear;
+        Node *newRear = getRightLink(target);
 
-    while(target != NULL) {
-        newRear = getRightLink(target);
-        free(target);
-        target = newRear;
+        while (target != NULL) {
+            newRear = getRightLink(target);
+            free(target);
+            target = newRear;
+        }
+        free(newRear);
     }
-    free(newRear);
     free(q);
 }
 
