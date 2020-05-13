@@ -2,8 +2,8 @@
 // Created by wkj11 on 2020-05-14.
 //
 
-#ifndef GRAPH_NODE_H
-#define GRAPH_NODE_H
+#ifndef DOUBLYLINKEDLIST_NODE_H
+#define DOUBLYLINKEDLIST_NODE_H
 
 #include "dataType.h"
 
@@ -17,4 +17,4 @@ Node* getLeftLink(Node* node);
 Node* getRightLink(Node* node);
 
 
-#endif //GRAPH_NODE_H
+#endif //DOUBLYLINKEDLIST_NODE_H

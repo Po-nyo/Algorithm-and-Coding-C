@@ -2,8 +2,8 @@
 // Created by wkj11 on 2020-05-14.
 //
 
-#ifndef GRAPH_DOUBLYLINKEDLIST_H
-#define GRAPH_DOUBLYLINKEDLIST_H
+#ifndef DOUBLYLINKEDLIST_DOUBLYLINKEDLIST_H
+#define DOUBLYLINKEDLIST_DOUBLYLINKEDLIST_H
 
 #include <stdbool.h>
 #include "node.h"
@@ -19,4 +19,4 @@ void printList(DoublyLinkedList* list);
 void freeList(DoublyLinkedList* list);
 bool isEmpty(DoublyLinkedList* list);
 
-#endif //GRAPH_DOUBLYLINKEDLIST_
+#endif //DOUBLYLINKEDLIST_DOUBLYLINKEDLIST_

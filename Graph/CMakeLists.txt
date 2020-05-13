@@ -3,4 +3,4 @@ project(Graph C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(Graph main.c graph.h graph.c DoublyLinkedList/dataType.h DoublyLinkedList/node.h DoublyLinkedList/doublyLinkedList.h DoublyLinkedList/node.c DoublyLinkedList/doublyLinkedList.c)
+add_executable(Graph main.c graph.h graph.c)
