@@ -3,7 +3,6 @@
 //
 #include <stdlib.h>
 #include "graph.h"
-#include "./Queue/Queue.h"
 
 typedef struct Graph {
     int** graph;

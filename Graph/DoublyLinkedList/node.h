@@ -1,9 +1,9 @@
 //
-// Created by wkj11 on 2020-05-11.
+// Created by wkj11 on 2020-05-14.
 //
 
-#ifndef QUEUE_QUEUENODE_H
-#define QUEUE_QUEUENODE_H
+#ifndef GRAPH_NODE_H
+#define GRAPH_NODE_H
 
 #include "dataType.h"
 
@@ -16,4 +16,5 @@ void setRightLink(Node* node, Node* rightNode);
 Node* getLeftLink(Node* node);
 Node* getRightLink(Node* node);
 
-#endif //QUEUE_QUEUENODE_H
+
+#endif //GRAPH_NODE_H

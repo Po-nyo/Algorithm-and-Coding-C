@@ -1,8 +1,9 @@
 //
-// Created by wkj11 on 2020-05-11.
+// Created by wkj11 on 2020-05-14.
 //
+
 #include <stdlib.h>
-#include "queueNode.h"
+#include "node.h"
 
 typedef struct Node {
     DataType data;
