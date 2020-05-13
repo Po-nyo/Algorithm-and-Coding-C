@@ -25,8 +25,8 @@ void enqueue(Queue* q, DataType data) {
         q->rear = newNode;
     }
     else {
-        setRightLink(newNode, q->rear);
-        setLeftLink(q->rear, newNode);
+        setRightLink(q->rear, newNode);
+        setLeftLink(newNode, q->rear);
         q->rear = newNode;
     }
 }
@@ -45,8 +45,8 @@ DataType dequeue(Queue* q) {
             q->rear = NULL;
         }
         else {
-            setRightLink(getLeftLink(tempNode), NULL);
-            q->front = getLeftLink(tempNode);
+            setLeftLink(getRightLink(tempNode), NULL);
+            q->front = getRightLink(tempNode);
         }
         free(tempNode);
         return data;
@@ -64,7 +64,7 @@ DataType peek(Queue* q) {
 }
 
 void printQ(Queue* q) {
-    Node* temp = q->rear;
+    Node* temp = q->front;
 
     printf("Queue : ");
     while(temp != NULL) {
@@ -77,14 +77,14 @@ void printQ(Queue* q) {
 void freeQueue(Queue* q) {
     if(!isEmpty(q)) {
         Node *target = q->rear;
-        Node *newRear = getRightLink(target);
+        Node *newFront = getRightLink(target);
 
         while (target != NULL) {
-            newRear = getRightLink(target);
+            newFront = getRightLink(target);
             free(target);
-            target = newRear;
+            target = newFront;
         }
-        free(newRear);
+        free(newFront);
     }
     free(q);
 }
