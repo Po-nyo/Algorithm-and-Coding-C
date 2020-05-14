@@ -4,6 +4,8 @@
 int main() {
     DoublyLinkedList* list = createLinkedList();
 
+    insertFirst(list, 0);
+
     printf("insertLast 1\n");
     insertLast(list, 1);
     printList(list);
@@ -29,6 +31,21 @@ int main() {
     printf("popLast\n");
     popLast(list);
     printList(list);
+
+    printf("insert by index, 0, 1\n");
+    insertByIndex(list, 0, 1);
+    printList(list);
+    insertLast(list, 2);
+    insertLast(list, 3);
+    insertLast(list, 4);
+    printList(list);
+    insertByIndex(list, 0, 5);
+    insertByIndex(list, 2, 6);
+    printList(list);
+    insertByIndex(list, 6, 7);
+    insertByIndex(list, 8, 7);
+    printList(list);
+
 
     freeList(list);
     printf("----TEST DONE----\n");

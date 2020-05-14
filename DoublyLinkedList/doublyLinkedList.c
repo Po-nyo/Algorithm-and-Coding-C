@@ -9,27 +9,34 @@
 typedef struct DoublyLinkedList {
     Node* front;
     Node* rear;
+    int size;
 } DoublyLinkedList;
 
 DoublyLinkedList* createLinkedList() {
     DoublyLinkedList* newList = malloc(sizeof(DoublyLinkedList));
     newList->front = NULL;
     newList->rear = NULL;
+    newList->size = 0;
 
     return newList;
 }
 
 void insertLast(DoublyLinkedList* list, DataType data) {
-    Node* newNode = createNode(data);
-    if(isEmpty(list)) {
-        list->front = newNode;
-        list->rear = newNode;
-    }
-    else {
-        setRightLink(list->rear, newNode);
-        setLeftLink(newNode, list->rear);
-        list->rear = newNode;
-    }
+    if(isEmpty(list))
+        insertByIndex(list, 0, data);
+    else
+        insertByIndex(list, getSize(list), data);
+//    Node* newNode = createNode(data);
+//    if(isEmpty(list)) {
+//        list->front = newNode;
+//        list->rear = newNode;
+//    }
+//    else {
+//        setRightLink(list->rear, newNode);
+//        setLeftLink(newNode, list->rear);
+//        list->rear = newNode;
+//    }
+//    list->size++;
 }
 
 DataType popLast(DoublyLinkedList* list) {
@@ -50,22 +57,25 @@ DataType popLast(DoublyLinkedList* list) {
             list->rear = getLeftLink(tempNode);
         }
         free(tempNode);
+        list->size--;
         return data;
     }
 }
 
 void insertFirst(DoublyLinkedList* list, DataType data) {
-    Node* newNode = createNode(data);
-
-    if(isEmpty(list)) {
-        list->front = newNode;
-        list->rear = newNode;
-    }
-    else {
-        setRightLink(newNode, list->front);
-        setLeftLink(list->front, newNode);
-    }
-    list->front = newNode;
+    insertByIndex(list, 0, data);
+//    Node* newNode = createNode(data);
+//
+//    if(isEmpty(list)) {
+//        list->front = newNode;
+//        list->rear = newNode;
+//    }
+//    else {
+//        setRightLink(newNode, list->front);
+//        setLeftLink(list->front, newNode);
+//    }
+//    list->front = newNode;
+//    list->size++;
 }
 
 DataType popFirst(DoublyLinkedList* list) {
@@ -85,8 +95,49 @@ DataType popFirst(DoublyLinkedList* list) {
             list->front = getRightLink(tempNode);
         }
         free(tempNode);
-
+        list->size--;
         return data;
+    }
+}
+
+void insertByIndex(DoublyLinkedList* list, int index, DataType data) {
+    if(index < 0 || index > getSize(list)) {
+        printf("Wrong Index!\n");
+        return;
+    }
+    else {
+        Node* newNode = createNode(data);
+        if(isEmpty(list)) {
+            list->front = newNode;
+            list->rear = newNode;
+            list->size++;
+        }
+        else {
+            Node* target = list->front;
+
+            if(index == 0) {
+                setRightLink(newNode, target);
+                setLeftLink(target, newNode);
+                list->front = newNode;
+
+                list->size++;
+            }
+            else if(index == getSize(list)) {
+                setRightLink(list->rear, newNode);
+                setLeftLink(newNode, list->rear);
+                list->rear = newNode;
+                list->size++;
+            }
+            else {
+                while (index-- > 0)
+                    target = getRightLink(target);
+
+                setRightLink(getLeftLink(target), newNode);
+                setRightLink(newNode, target);
+                setLeftLink(target, newNode);
+                list->size++;
+            }
+        }
     }
 }
 
@@ -117,5 +168,9 @@ void freeList(DoublyLinkedList* list) {
 }
 
 bool isEmpty(DoublyLinkedList* list) {
-    return list->front == NULL;
+    return getSize(list) == 0;
+}
+
+int getSize(DoublyLinkedList* list) {
+    return list->size;
 }
