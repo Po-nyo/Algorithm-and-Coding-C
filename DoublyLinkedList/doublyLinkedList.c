@@ -7,96 +7,46 @@
 #include "doublyLinkedList.h"
 
 typedef struct DoublyLinkedList {
-    Node* front;
-    Node* rear;
+    Node* head;
+    Node* tail;
     int size;
 } DoublyLinkedList;
 
 DoublyLinkedList* createLinkedList() {
     DoublyLinkedList* newList = malloc(sizeof(DoublyLinkedList));
-    newList->front = NULL;
-    newList->rear = NULL;
+    newList->head = NULL;
+    newList->tail = NULL;
     newList->size = 0;
 
     return newList;
 }
 
-void insertLast(DoublyLinkedList* list, DataType data) {
-    if(isEmpty(list))
-        insertByIndex(list, 0, data);
-    else
-        insertByIndex(list, getSize(list), data);
-//    Node* newNode = createNode(data);
-//    if(isEmpty(list)) {
-//        list->front = newNode;
-//        list->rear = newNode;
-//    }
-//    else {
-//        setRightLink(list->rear, newNode);
-//        setLeftLink(newNode, list->rear);
-//        list->rear = newNode;
-//    }
-//    list->size++;
+int getIndexByData(DoublyLinkedList* list, DataType data) {
+    int index = 0;
+    Node* target = list->head;
+
+    while(target != NULL) {
+        if(isMatch(getData(target), data))
+            return index;
+        target = getRightLink(target);
+        index++;
+    }
+
+    printf("Data is not in the List\n");
+    return -1;
 }
 
-DataType popLast(DoublyLinkedList* list) {
-    if(isEmpty(list)) {
-        printf("List is Empty!\n");
-        return 0;
+Node* searchNodeByIndex(DoublyLinkedList* list, int index) {
+    if(index < 0 || index >= getSize(list)) {
+        printf("Wrong Index!\n");
+        return NULL;
     }
     else {
-        Node* tempNode = list->rear;
-        DataType data = getData(tempNode);
+        Node* target = list->head;
+        while (index-- > 0)
+            target = getRightLink(target);
 
-        if(tempNode == list->front) {
-            list->front = NULL;
-            list->rear = NULL;
-        }
-        else {
-            setRightLink(getLeftLink(tempNode), NULL);
-            list->rear = getLeftLink(tempNode);
-        }
-        free(tempNode);
-        list->size--;
-        return data;
-    }
-}
-
-void insertFirst(DoublyLinkedList* list, DataType data) {
-    insertByIndex(list, 0, data);
-//    Node* newNode = createNode(data);
-//
-//    if(isEmpty(list)) {
-//        list->front = newNode;
-//        list->rear = newNode;
-//    }
-//    else {
-//        setRightLink(newNode, list->front);
-//        setLeftLink(list->front, newNode);
-//    }
-//    list->front = newNode;
-//    list->size++;
-}
-
-DataType popFirst(DoublyLinkedList* list) {
-    if(isEmpty(list)) {
-        printf("List is Empty!\n");
-        return 0;
-    }
-    else {
-        Node* tempNode = list->front;
-        DataType data = getData(tempNode);
-        if(tempNode == list->rear) {
-            list->front = NULL;
-            list->rear = NULL;
-        }
-        else {
-            setLeftLink(getRightLink(tempNode), NULL);
-            list->front = getRightLink(tempNode);
-        }
-        free(tempNode);
-        list->size--;
-        return data;
+        return target;
     }
 }
 
@@ -108,30 +58,25 @@ void insertByIndex(DoublyLinkedList* list, int index, DataType data) {
     else {
         Node* newNode = createNode(data);
         if(isEmpty(list)) {
-            list->front = newNode;
-            list->rear = newNode;
+            list->head = newNode;
+            list->tail = newNode;
             list->size++;
         }
         else {
-            Node* target = list->front;
-
             if(index == 0) {
-                setRightLink(newNode, target);
-                setLeftLink(target, newNode);
-                list->front = newNode;
-
+                setRightLink(newNode, list->head);
+                setLeftLink(list->head, newNode);
+                list->head = newNode;
                 list->size++;
             }
             else if(index == getSize(list)) {
-                setRightLink(list->rear, newNode);
-                setLeftLink(newNode, list->rear);
-                list->rear = newNode;
+                setRightLink(list->tail, newNode);
+                setLeftLink(newNode, list->tail);
+                list->tail = newNode;
                 list->size++;
             }
             else {
-                while (index-- > 0)
-                    target = getRightLink(target);
-
+                Node* target = searchNodeByIndex(list, index);
                 setRightLink(getLeftLink(target), newNode);
                 setRightLink(newNode, target);
                 setLeftLink(target, newNode);
@@ -141,8 +86,88 @@ void insertByIndex(DoublyLinkedList* list, int index, DataType data) {
     }
 }
 
+void deleteByIndex(DoublyLinkedList* list, int index) {
+    if(index < 0 || index >= getSize(list)) {
+        printf("Wrong Index!\n");
+        return;
+    }
+    else {
+        Node* target = searchNodeByIndex(list, index);
+        if(index == 0) {
+            setLeftLink(getRightLink(target), NULL);
+            list->head = getRightLink(target);
+            list->size--;
+        }
+        else if(index == getSize(list)-1) {
+            setRightLink(getLeftLink(target), NULL);
+            list->tail = getLeftLink(target);
+            free(target);
+            list->size--;
+        }
+        else {
+            setRightLink(getLeftLink(target), getRightLink(target));
+            setLeftLink(getRightLink(target), getLeftLink(target));
+            free(target);
+            list->size--;
+        }
+    }
+}
+
+void insertLast(DoublyLinkedList* list, DataType data) {
+    insertByIndex(list, getSize(list), data);
+}
+
+DataType popLast(DoublyLinkedList* list) {
+    if(isEmpty(list)) {
+        printf("List is Empty!\n");
+        return 0;
+    }
+    else {
+        Node* tempNode = list->tail;
+        DataType data = getData(tempNode);
+
+        if(tempNode == list->head) {
+            list->head = NULL;
+            list->tail = NULL;
+        }
+        else {
+            setRightLink(getLeftLink(tempNode), NULL);
+            list->tail = getLeftLink(tempNode);
+        }
+        free(tempNode);
+        list->size--;
+        return data;
+    }
+}
+
+void insertFirst(DoublyLinkedList* list, DataType data) {
+    insertByIndex(list, 0, data);
+}
+
+DataType popFirst(DoublyLinkedList* list) {
+    if(isEmpty(list)) {
+        printf("List is Empty!\n");
+        return 0;
+    }
+    else {
+        Node* tempNode = list->head;
+        DataType data = getData(tempNode);
+        if(tempNode == list->tail) {
+            list->head = NULL;
+            list->tail = NULL;
+        }
+        else {
+            setLeftLink(getRightLink(tempNode), NULL);
+            list->head = getRightLink(tempNode);
+        }
+        free(tempNode);
+        list->size--;
+        return data;
+    }
+}
+
 void printList(DoublyLinkedList* list) {
-    Node* temp = list->front;
+    Node* temp = list->head;
 
     printf("List : ");
     while(temp != NULL) {
@@ -152,9 +177,9 @@ void printList(DoublyLinkedList* list) {
     printf("\n\n");
 }
 
-void freeList(DoublyLinkedList* list) {
+void clearList(DoublyLinkedList* list) {
     if(!isEmpty(list)) {
-        Node *target = list->front;
+        Node *target = list->head;
         Node *newFront = getRightLink(target);
 
         while (target != NULL) {
@@ -164,6 +189,13 @@ void freeList(DoublyLinkedList* list) {
         }
         free(newFront);
     }
+    list->head = NULL;
+    list->tail = NULL;
+    list->size = 0;
+}
+
+void freeList(DoublyLinkedList* list) {
+    clearList(list);
     free(list);
 }
 

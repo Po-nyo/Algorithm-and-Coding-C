@@ -1,51 +1,66 @@
 #include <stdio.h>
 #include "doublyLinkedList.h"
 
+void insertLastTest(DoublyLinkedList* list, DataType data) {
+    printf("insertLast %d\n", data);
+    insertLast(list, data);
+    printList(list);
+}
+
+void insertFirstTest(DoublyLinkedList* list, DataType data) {
+    printf("insertFirst %d\n", data);
+    insertFirst(list, data);
+    printList(list);
+}
+
+void popFirstTest(DoublyLinkedList* list) {
+    printf("popFirst\n");
+    popFirst(list);
+    printList(list);
+}
+
+void popLastTest(DoublyLinkedList* list) {
+    printf("popLast\n");
+    popLast(list);
+    printList(list);
+}
+
+void insertByIndexTest(DoublyLinkedList* list, int index, DataType data) {
+    printf("insert data : %d, by index : %d\n", data, index);
+    insertByIndex(list, index, data);
+    printList(list);
+}
+
+void deleteByIndexTest(DoublyLinkedList* list, int index) {
+    printf("delete by index %d\n", index);
+    deleteByIndex(list, index);
+    printList(list);
+}
+
 int main() {
     DoublyLinkedList* list = createLinkedList();
 
-    insertFirst(list, 0);
+    insertLastTest(list, 1);
+    insertLastTest(list, 2);
+    insertFirstTest(list, 3);
+    insertFirstTest(list, 4);
 
-    printf("insertLast 1\n");
-    insertLast(list, 1);
-    printList(list);
-    printf("insertLast 2\n");
-    insertLast(list, 2);
-    printList(list);
-    printf("insertFirst 3\n");
-    insertFirst(list, 3);
-    printList(list);
-    printf("insertFirst 4\n");
-    insertFirst(list, 4);
-    printList(list);
+    popFirstTest(list);
+    popLastTest(list);
+    popFirstTest(list);
+    popLastTest(list);
 
-    printf("popFirst\n");
-    popFirst(list);
-    printList(list);
-    printf("popLast\n");
-    popLast(list);
-    printList(list);
-    printf("popFirst\n");
-    popFirst(list);
-    printList(list);
-    printf("popLast\n");
-    popLast(list);
-    printList(list);
+    insertByIndexTest(list, 0, 5);
+    insertByIndexTest(list, 1, 6);
+    insertByIndexTest(list, 1, 7);
+    insertByIndexTest(list, 3, 8);
 
-    printf("insert by index, 0, 1\n");
-    insertByIndex(list, 0, 1);
-    printList(list);
-    insertLast(list, 2);
-    insertLast(list, 3);
-    insertLast(list, 4);
-    printList(list);
-    insertByIndex(list, 0, 5);
-    insertByIndex(list, 2, 6);
-    printList(list);
-    insertByIndex(list, 6, 7);
-    insertByIndex(list, 8, 7);
-    printList(list);
+    deleteByIndexTest(list, 0);
+    deleteByIndexTest(list, 1);
 
+    printf("get index by data 7 and delete by index\n");
+    deleteByIndex(list, getIndexByData(list, 7));
+    printList(list);
 
     freeList(list);
     printf("----TEST DONE----\n");
