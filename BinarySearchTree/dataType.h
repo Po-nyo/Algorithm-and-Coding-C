@@ -1,0 +1,10 @@
+//
+// Created by wkj11 on 2020-05-22.
+//
+
+#ifndef BINARYSEARCHTREE_DATATYPE_H
+#define BINARYSEARCHTREE_DATATYPE_H
+
+typedef int DataType;
+
+#endif //BINARYSEARCHTREE_DATATYPE_H
