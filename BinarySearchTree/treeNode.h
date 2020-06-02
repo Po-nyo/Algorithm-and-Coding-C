@@ -10,10 +10,11 @@
 typedef struct TreeNode TreeNode;
 
 TreeNode* createNode(DataType data);
+void insertData(TreeNode* root, DataType data);
+TreeNode* search(TreeNode* treeNode, DataType data);
+TreeNode* delete(TreeNode* root, DataType data);
 DataType getData(TreeNode* treeNode);
-void setLeftTree(TreeNode* treeNode, TreeNode* leftTree);
-void setRightTree(TreeNode* treeNode, TreeNode* rightTree);
-TreeNode* getLeftTree(TreeNode* treeNode);
-TreeNode* getRightTree(TreeNode* treeNode);
+void printInorder(TreeNode* root);
+TreeNode* findSuccessor(TreeNode* treeNode);
 
 #endif //BINARYSEARCHTREE_TREENODE_H
