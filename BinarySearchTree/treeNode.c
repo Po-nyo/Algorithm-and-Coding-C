@@ -47,12 +47,12 @@ TreeNode* search(TreeNode* treeNode, DataType data) {
         return search(treeNode->rightTree, data);
 }
 
-void printInorder(TreeNode* root) {
+void printTree(TreeNode* root) {
     if(root == NULL)
         return;
-    printInorder(root->leftTree);
+    printTree(root->leftTree);
     printf("%d ", root->data);
-    printInorder(root->rightTree);
+    printTree(root->rightTree);
 }
 
 TreeNode* delete(TreeNode* root, DataType data) {

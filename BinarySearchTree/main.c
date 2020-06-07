@@ -14,16 +14,16 @@ int main() {
     else
         printf("Data is not in the Tree\n\n");
 
-    printInorder(root);
+    printTree(root);
     printf("\n\n");
-    root = delete(root,10);
-    printInorder(root);
+    delete(root,10);
+    printTree(root);
     printf("\n\n");
-    root = delete(root,24);
-    printInorder(root);
+    delete(root,24);
+    printTree(root);
     printf("\n\n");
-    root = delete(root,40);
-    printInorder(root);
+    delete(root,40);
+    printTree(root);
     printf("\n\n");
 
     return 0;

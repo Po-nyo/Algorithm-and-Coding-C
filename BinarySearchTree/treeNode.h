@@ -14,7 +14,7 @@ void insertData(TreeNode* root, DataType data);
 TreeNode* search(TreeNode* treeNode, DataType data);
 TreeNode* delete(TreeNode* root, DataType data);
 DataType getData(TreeNode* treeNode);
-void printInorder(TreeNode* root);
+void printTree(TreeNode* root);
 TreeNode* findSuccessor(TreeNode* treeNode);
 
 #endif //BINARYSEARCHTREE_TREENODE_H
